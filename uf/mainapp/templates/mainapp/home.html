@@ -1,0 +1,31 @@
+{% extends "mainapp/index.html" %}
+{% block title %} Posts {% endblock %}
+{% block content %}
+        {% comment %} <div class="card-body"> {% endcomment %}
+      <div class="small text-muted">
+        <a class="btn btn-primary" href="{% url 'mainapp:post-create' %}"> + Create New Content! </a>
+      </div>
+    <br>
+    <!-- Blog post-->
+    {% for post in posts %}
+      <div class="card mb-4">
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ post.author.image.url }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2">{{ post.author }}</a>
+              <div class="small text-muted">{{ post.dandt|date:"F d, Y" }} |
+                <a href="{% url 'mainapp:category' post.category %}"><i>{{ post.category}}</i></a><br>
+              </div>
+            </div>
+            <div class = "text-center">
+              <h2 class="card-title h4">{{ post.title }}</h2>
+              <p class="card-text">{{ post.content | safe }}</p>
+              <a class="btn btn-primary" href="{% url 'mainapp:post-detail' post.pk %}">Read more →</a>
+            </div>
+            <br>
+          </div>
+        </article>
+      </div>
+    {% endfor %}
+{% endblock content %}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="description" content="">
+            <meta name="author" content="" >
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>
+                {% block title %} 
+                    Unofficial Forum
+                {% endblock %}
+            </title>
+             <!-- Favicon-->
+            <link rel="icon" type="image/x-icon" href="favicon.ico">
+            <!-- Core theme CSS (includes Bootstrap)-->
+            {% load static %}
+                <link rel="stylesheet" type="text/css" href= {% static 'mainstyle.css' %}>
+                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+        </head>
+        <body>
+
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <strong> Message:</strong> {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+            <div class="container">
+                <div class="text-center my-5">
+                    <h1 class="fw-bolder">Welcome to Unofficial Forum!</h1>
+                    <p class="lead mb-0">Your daily student feed, have a great time here!</p>
+                </div>
+                {% block content %}
+                {% endblock %}
+            </div>
+            <!-- Footer-->
+            <footer class="py-5 bg-dark">
+                <div class="container"><p class="m-0 text-center text-white">Copyright &copy; UnofficialForum 2022</p></div>
+            </footer>
+            <!-- Bootstrap core JS-->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+            <!-- Core theme JS-->
+            <script src="scripts.js"></script>
+
+            <script src = "" async defer></script>
+        </body>
+    </html>

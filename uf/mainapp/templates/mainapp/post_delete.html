@@ -1,0 +1,19 @@
+{% extends "mainapp/postlayout.html" %}
+{% block title %}{{ object.title }}{% endblock %}
+{% block content %}
+<a class = "btn btn-primary btn-sm mt-1 mb-1" href = "{% url 'mainapp:home' %}"> Back </a>
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Delete Post</legend>
+                <h3>Are you sure you want to delete the post?"{{ object.title }}"</h3><br>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
+                <a class="btn btn-outline-secondary" href="{% url 'mainapp:post-detail' object.pk %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+    <br>
+{% endblock content %}

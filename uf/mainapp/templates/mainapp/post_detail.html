@@ -1,0 +1,69 @@
+{% extends "mainapp/postlayout.html"%}
+{% load static %}
+{% block title %} {{ object.title }} {% endblock %}
+{% block content %}
+    <article class="media content-section">
+        {% comment %} <img class="rounded-circle article-img" src="{{ object.author.profile.profile_pic.url }}"> {% endcomment %}
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'mainapp:profile-update' user.id %}" >{{ object.author }}</a>
+                <small class="text-muted">{{ object.dandt|date:"F d, Y" }}</small> |
+                <i>{{ object.category}}</i><br>
+                <br><br>
+                <h5 class="article-title" >{{ object.title }}</h5>
+                <p class="article-content">{{ object.filecon }}</p>
+                <p class="article-content">{{ object.content | safe }}</p>
+            </div>
+            <div class="like">
+                <form action="{% url 'mainapp:like-post' post.pk %}" method="POST">
+                    {% csrf_token %}
+                    {% if liked %}
+                        <button type="submit", name="post_id", value="{{post.id}}"><h5>{{total_likes}}</h5><i class="bi bi-arrow-down"></i></button>
+                    {% else %}
+                        <button type="submit", name="post_id", value="{{post.id}}"><h5>{{total_likes}}</h5><i class="bi bi-arrow-up"></i></button> 
+                    {% endif %}
+                </form>
+            </div>
+            {% if object.author == user %}
+                <div>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'mainapp:post-update' object.pk %}">Update</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'mainapp:post-delete' object.pk %}">Delete</a>
+                    <a class = "btn btn-primary btn-sm mt-1 mb-1" href = "{% url 'mainapp:home' %}"> Back </a>
+                </div>
+            {% endif %}   
+            <br><br>
+            <div class="card mb-3">
+                <div class="row g-0">
+                  <div class="col-md-2">
+                    {% if object.author.profile.profile_pic.url %}
+                        <img src="{{ object.author.profile.profile_pic.url }}" class="img-fluid rounded-start">
+                    {% else %}
+                    <img src="{% static 'default/default.png' %}" class="img-fluid rounded-start"><br>
+                    {% endif %} 
+                  </div>
+                  <div class="col-md-10">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ object.author }}</h5>
+                      <p class="card-text">{{ object.author.profile.bio }}</p>
+                      <p class="card-text"><small class="text-muted">
+                        {% if object.author.profile.websiteurl %}
+                            | <a href ="{{ object.author.profile.websiteurl }}"><i class="bi bi-link-45deg"></i></a> 
+                        {% endif %}
+                        {% if object.author.profile.fburl %}
+                            | <a href ="{{ object.author.profile.fburl }}"><i class="bi bi-facebook"></i></a>
+                        {% endif %}
+                        {% if object.author.profile.twitterurl %}  
+                            | <a href ="{{ object.author.profile.twitterurl }}"><i class="bi bi-twitter"></i></a> 
+                        {% endif %}
+                        {% if object.author.profile.igurl %}         
+                            | <a href ="{{ object.author.profile.igurl }}"><i class="bi bi-instagram"></i></a> 
+                        {% endif %}
+                      </small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </article>
+    <br>
+{% endblock content %}

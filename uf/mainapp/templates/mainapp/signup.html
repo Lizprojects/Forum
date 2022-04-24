@@ -1,0 +1,17 @@
+{% extends "mainapp/landingpage.html" %}
+{% load crispy_forms_tags %}
+{% block title %} Sign Up {% endblock %}
+{% block content %}
+    <form method="post">
+    {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit"> Sign up </button>
+    </form>
+    <br>
+    <div class="border-top pt-3">
+        <small class="text-muted"
+            >Already Have An Account? <a class="ml-2" href="/signin"><b>Sign In</b></a>
+        </small>
+    </div>
+    <br>
+{% endblock content %} 

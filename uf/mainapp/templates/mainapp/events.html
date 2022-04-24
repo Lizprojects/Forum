@@ -1,0 +1,29 @@
+{% extends "mainapp/eventlayout.html" %}
+{% block title %} Events {% endblock %}
+{% block content %}
+    {% comment %} <div class="card mb-4"> {% endcomment %}
+        <div class="card-body">
+            <div class="small text-muted text-center">
+              <a class="btn btn-primary" href="{% url 'mainapp:event-create' %}"> + Create new Event </a>
+            </div>
+        </div><br>
+    {% comment %} </div> {% endcomment %}
+    <!-- events -->
+    {% for event in events %}
+      <div class="card mb-4">
+        <article class="media content-section text-center">
+          <img class="rounded-circle article-img" src="{{ event.author.image.url }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ event.author }}</a>
+              <div class="small text-muted">{{ event.dandt|date:"F d, Y" }}</div>
+            </div>
+            <h2 class="card-title h4">{{ event.title }}</h2>
+            <p class="card-text">{{ event.content | safe }}</p>
+            <a class="btn btn-primary" href="{% url 'mainapp:event-detail' event.pk %}">Read more →</a>
+          </div>
+        </article>
+        <br>
+      </div>
+    {% endfor %}
+{% endblock content %}

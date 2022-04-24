@@ -1,0 +1,39 @@
+{% extends "mainapp/plainlayout.html" %}
+{% block title %} Posts {% endblock %}
+{% block content %}
+    <!-- Blog post-->
+    {% if category_posts %}
+        <legend class="border-bottom mb-4">Showing '{{category}}' Post :</legend>
+        {% for post in category_posts %}
+            <div class="card mb-4">
+                <article class="media content-section text-center">
+                    <img class="rounded-circle article-img" src="{{ post.author.image.url }}">
+                    <div class="media-body">
+                        <div class="article-metadata">
+                            <a class="mr-2" href="{% url 'mainapp:profile-update' %}">{{ post.author }}</a>
+                            <div class="small text-muted">{{ post.dandt|date:"F d, Y" }} <br>
+                            </div>
+                        </div>
+                        <div class = "text-center">
+                            <h2 class="card-title h4">{{ post.title }}</h2>
+                            <p class="card-text">{{ post.content | safe }}</p>
+                            <a class="btn btn-primary" href="{% url 'mainapp:post-detail' post.pk %}">Read more →</a>
+                        </div>
+                        <br>
+                    </div>
+                </article>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p><b> Sorry!</b> 
+        We could not find any post under '{{category}}' category.</p>
+        Suggestions:
+        <ul>
+          
+            <li>Make sure that all words are spelled correctly.</li>
+            <li>Try different keywords.</li>
+            <li>Try more general keywords.</li>
+        </ul>
+    
+    {% endif %}
+{% endblock content %}
